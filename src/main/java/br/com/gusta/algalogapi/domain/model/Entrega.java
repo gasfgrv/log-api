@@ -1,5 +1,6 @@
 package br.com.gusta.algalogapi.domain.model;
 
+import br.com.gusta.algalogapi.domain.exception.NegocioException;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
@@ -57,7 +58,7 @@ public class Entrega {
 
     public void finalizar() {
         if (naoPodeSerFinalizada()) {
-            throw new RuntimeException("Entrega não pode ser finalizada");
+            throw new NegocioException("Entrega não pode ser finalizada");
         }
 
         setStatus(StatusEntrega.FINALIZADA);

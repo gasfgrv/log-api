@@ -16,23 +16,19 @@ Api REST usando java e Spring Boot
 Para quem quiser o mariadb via docker-compose, segue exemplo do arquivo de configuração:
 
 ```yaml
-version: '3.9'
-
+version: "3.7"
 services:
   mariadb:
     image: mariadb:10.7
+    restart: always
     ports:
-      - 3306:3306
-    volumes:
-      - ~/apps/mariadb:/var/lib/mysql
+      - "3306:3306"
     environment:
-      - MYSQL_ROOT_PASSWORD=<senha>
-      - MYSQL_PASSWORD=<senha>
-      - MYSQL_USER=<usuario>
-      - MYSQL_DATABASE=algalog
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_PASSWORD: root
+      MYSQL_USER: root
+      MYSQL_DATABASE: algalog
 ```
-
-fonte: [How to run Mariadb with Docker and Docker-Compose](https://citizix.com/how-to-run-mariadb-with-docker-and-docker-compose/#:~:text=Using%20the%20docker%2Dcompose%20tool,-We%20can%20achieve&text=With%20Compose%2C%20you%20use%20a,to%20mount%20and%20environment%20variables.&text=The%20commands%3A,up%20brings%20up%20the%20container)
 
 **Para testar a API locamente no Insomnia** 
 

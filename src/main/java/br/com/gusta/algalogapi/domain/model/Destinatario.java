@@ -1,10 +1,11 @@
 package br.com.gusta.algalogapi.domain.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.validation.constraints.NotBlank;
-import lombok.Getter;
-import lombok.Setter;
 
 @Getter
 @Setter

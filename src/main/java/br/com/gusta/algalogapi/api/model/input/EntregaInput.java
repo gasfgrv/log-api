@@ -1,10 +1,11 @@
 package br.com.gusta.algalogapi.api.model.input;
 
-import java.math.BigDecimal;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 
 @Getter
 @Setter

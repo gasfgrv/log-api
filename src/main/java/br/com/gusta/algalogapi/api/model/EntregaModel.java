@@ -1,10 +1,11 @@
 package br.com.gusta.algalogapi.api.model;
 
 import br.com.gusta.algalogapi.domain.model.StatusEntrega;
-import java.math.BigDecimal;
-import java.time.OffsetDateTime;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.math.BigDecimal;
+import java.time.OffsetDateTime;
 
 @Getter
 @Setter

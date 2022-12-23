@@ -5,8 +5,6 @@ import br.com.gusta.algalogapi.api.model.OcorrenciaModel;
 import br.com.gusta.algalogapi.api.model.input.OcorrenciaInput;
 import br.com.gusta.algalogapi.domain.service.BuscaEntregaService;
 import br.com.gusta.algalogapi.domain.service.RegistroOcorrenciaService;
-import java.util.List;
-import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
@@ -19,6 +17,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/entregas/{entregaId}/ocorrencias")

@@ -1,8 +1,9 @@
 package br.com.gusta.algalogapi.api.model;
 
-import java.time.OffsetDateTime;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.time.OffsetDateTime;
 
 @Getter
 @Setter

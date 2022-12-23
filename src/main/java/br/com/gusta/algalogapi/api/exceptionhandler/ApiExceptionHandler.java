@@ -2,9 +2,6 @@ package br.com.gusta.algalogapi.api.exceptionhandler;
 
 import br.com.gusta.algalogapi.domain.exception.EntidadeNaoEncontradaException;
 import br.com.gusta.algalogapi.domain.exception.NegocioException;
-import java.time.OffsetDateTime;
-import java.util.ArrayList;
-
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -15,13 +12,14 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+
+import java.time.OffsetDateTime;
+import java.util.ArrayList;
 
 @ControllerAdvice
 @RequiredArgsConstructor

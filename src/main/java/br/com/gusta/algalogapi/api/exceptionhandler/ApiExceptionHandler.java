@@ -4,6 +4,10 @@ import br.com.gusta.algalogapi.domain.exception.EntidadeNaoEncontradaException;
 import br.com.gusta.algalogapi.domain.exception.NegocioException;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
+
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -15,6 +19,7 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
@@ -25,6 +30,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     private final MessageSource messageSource;
 
     @Override
+    @ApiResponse(responseCode = "400", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Problema.class)))
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
                                                                   HttpHeaders headers,
                                                                   HttpStatus status,
@@ -32,11 +38,11 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
         var campos = new ArrayList<Problema.Campo>();
 
-        for (ObjectError error : ex.getBindingResult().getAllErrors()) {
+        ex.getBindingResult().getAllErrors().forEach(error -> {
             var nome = ((FieldError) error).getField();
             var mensagem = messageSource.getMessage(error, LocaleContextHolder.getLocale());
             campos.add(new Problema.Campo(nome, mensagem));
-        }
+        });
 
         var problema = new Problema();
         problema.setStatus(status.value());
@@ -48,6 +54,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(EntidadeNaoEncontradaException.class)
+    @ApiResponse(responseCode = "404", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Problema.class)))
     public ResponseEntity<Object> handleEntidadeNaoEncontrada(EntidadeNaoEncontradaException ex, WebRequest request) {
 
         var status = HttpStatus.NOT_FOUND;
@@ -61,6 +68,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(NegocioException.class)
+    @ApiResponse(responseCode = "400", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Problema.class)))
     public ResponseEntity<Object> handleNegocio(NegocioException ex, WebRequest request) {
         var status = HttpStatus.BAD_REQUEST;
 

@@ -1,46 +1,50 @@
 package br.com.gusta.algalogapi.api.controller;
 
-import br.com.gusta.algalogapi.api.assembler.OcorrenciaAssembler;
 import br.com.gusta.algalogapi.api.model.OcorrenciaModel;
 import br.com.gusta.algalogapi.api.model.input.OcorrenciaInput;
-import br.com.gusta.algalogapi.domain.service.BuscaEntregaService;
-import br.com.gusta.algalogapi.domain.service.RegistroOcorrenciaService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 import java.util.List;
-import javax.validation.Valid;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
 
-@RestController
-@RequestMapping("/entregas/{entregaId}/ocorrencias")
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
-public class OcorrenciaController {
+@Tag(name = "Ocorrências", description = "Endpoint para tratamento de Ocorrências relacionadas a uma entrega")
+public interface OcorrenciaController {
+    @Operation(
+            summary = "Registrar ocorrencias",
+            description = "Vincula uma ocorrência a uma entrega"
+    )
+    @ApiResponse(
+            responseCode = "200",
+            description = "Ocorrência registrada",
+            content = @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(
+                            implementation = OcorrenciaModel.class
+                    )
+            )
+    )
+    OcorrenciaModel registrar(@Parameter(name = "entregaId", in = ParameterIn.PATH, description = "Id da entrega", required = true) Long entregaId, @RequestBody(description = "dados da ocorrência", required = true, content = @Content(mediaType = "application/json", schema = @Schema(implementation = OcorrenciaInput.class))) OcorrenciaInput ocorrenciaInput);
 
-    private final BuscaEntregaService buscaEntregaService;
-    private final RegistroOcorrenciaService registroOcorrenciaService;
-    private final OcorrenciaAssembler ocorrenciaAssembler;
+    @Operation(
+            summary = "Listar ocorrências",
+            description = "Listar todas as ocorrências relacionadas a uma entrega"
+    )
+    @ApiResponse(
+            responseCode = "200",
+            description = "Todos as ocorrências",
+            content = @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(
+                            implementation = OcorrenciaModel.class
+                    )
+            )
+    )
+    List<OcorrenciaModel> listar(@Parameter(name = "entregaId", in = ParameterIn.PATH, description = "Id da entrega", required = true) Long entregaId);
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    @CacheEvict("ocorrencias")
-    public OcorrenciaModel registrar(@PathVariable Long entregaId, @Valid @RequestBody OcorrenciaInput ocorrenciaInput) {
-        var ocorrenciaRegistrada = registroOcorrenciaService.registrar(entregaId, ocorrenciaInput.getDescricao());
-        return ocorrenciaAssembler.toModel(ocorrenciaRegistrada);
-    }
-
-    @GetMapping
-    @Cacheable("ocorrencias")
-    public List<OcorrenciaModel> listar(@PathVariable Long entregaId) {
-        var entrega = buscaEntregaService.buscar(entregaId);
-        return ocorrenciaAssembler.toCollectionModel(entrega.getOcorrencias());
-    }
 }

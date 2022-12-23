@@ -1,74 +1,81 @@
 package br.com.gusta.algalogapi.api.controller;
 
-import br.com.gusta.algalogapi.api.assembler.EntregaAssembler;
 import br.com.gusta.algalogapi.api.model.EntregaModel;
 import br.com.gusta.algalogapi.api.model.input.EntregaInput;
-import br.com.gusta.algalogapi.domain.repository.EntregaRepository;
-import br.com.gusta.algalogapi.domain.service.FinalizacaoEntregaService;
-import br.com.gusta.algalogapi.domain.service.SolicitacaoEntregaService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.cache.annotation.Caching;
-import org.springframework.http.HttpStatus;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
 import java.util.List;
 
-@RestController
-@RequestMapping("/entregas")
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
-public class EntregaController {
+@Tag(name = "Entregas", description = "Endpoint para tratamento das entregas")
+public interface EntregaController {
 
-    private final EntregaRepository entregaRepository;
-    private final SolicitacaoEntregaService solicitacaoEntregaService;
-    private final FinalizacaoEntregaService finalizacaoEntregaService;
-    private final EntregaAssembler entregaAssembler;
+    @Operation(
+            summary = "Solicitar entrega",
+            description = "Vincula um clienate à entrega e cria a mesma"
+    )
+    @ApiResponse(
+            responseCode = "200",
+            description = "Entrega solicitada",
+            content = @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = EntregaModel.class))
+    )
+    EntregaModel solicitar(@RequestBody(description = "Formulário de cadastro", required = true, content = @Content(mediaType = "application/json", schema = @Schema(implementation = EntregaInput.class))) EntregaInput entregaInput);
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    @Caching(evict = {
-            @CacheEvict("entregas"),
-            @CacheEvict("entrega")
-    })
-    public EntregaModel solicitar(@Valid @RequestBody EntregaInput entregaInput) {
-        var novaEntrega = entregaAssembler.toEntity(entregaInput);
-        var entregaSolicitada = solicitacaoEntregaService.solicitar(novaEntrega);
-        return entregaAssembler.toModel(entregaSolicitada);
-    }
+    @Operation(
+            summary = "Finalizar entrega",
+            description = "Finalizar uma determinada entregas a partir do id"
+    )
+    @ApiResponse(
+            responseCode = "200",
+            description = "Entrega finalizada"
+    )
+    void finalizar(@Parameter(name = "entregaId", in = ParameterIn.PATH, description = "Id da entrega", required = true) Long entregaId);
 
-    @PutMapping("/{entregaId}/finalizacao")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    @Caching(evict = {
-            @CacheEvict("entregas"),
-            @CacheEvict("entrega")
-    })
-    public void finalizar(@PathVariable Long entregaId) {
-        finalizacaoEntregaService.finalizar(entregaId);
-    }
+    @Operation(
+            summary = "Listar entregas",
+            description = "Listar todas as entregas salvas"
+    )
+    @ApiResponse(
+            responseCode = "200",
+            description = "Todas as entregas",
+            content = @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(
+                            implementation = EntregaModel.class
+                    )
+            )
+    )
+    List<EntregaModel> listar();
 
-    @GetMapping
-    @Cacheable("entregas")
-    public List<EntregaModel> listar() {
-        return entregaAssembler.toCollectionModel(entregaRepository.findAll());
-    }
-
-    @GetMapping("/{entregaId}")
-    @Cacheable("entrega")
-    public ResponseEntity<EntregaModel> buscar(@PathVariable Long entregaId) {
-        return entregaRepository.findById(entregaId)
-                .map(entrega -> ResponseEntity.ok(entregaAssembler.toModel(entrega)))
-                .orElse(ResponseEntity.notFound().build());
-    }
+    @Operation(
+            summary = "Buscar entrega",
+            description = "Buscar determinada entrega a partir do id"
+    )
+    @ApiResponse(
+            responseCode = "200",
+            description = "Entrega encontrada",
+            content = @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(
+                            implementation = EntregaModel.class
+                    )
+            )
+    )
+    @ApiResponse(
+            responseCode = "404",
+            description = "Entrega não encontrada",
+            content = @Content(
+                    mediaType = "application/json")
+    )
+    ResponseEntity<EntregaModel> buscar(@Parameter(name = "entregaId", in = ParameterIn.PATH, description = "Id da entrega", required = true) Long entregaId);
 
 }

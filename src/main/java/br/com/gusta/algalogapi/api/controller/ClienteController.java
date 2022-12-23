@@ -1,5 +1,8 @@
 package br.com.gusta.algalogapi.api.controller;
 
+import br.com.gusta.algalogapi.api.assembler.ClienteAssembler;
+import br.com.gusta.algalogapi.api.model.ClienteModel;
+import br.com.gusta.algalogapi.api.model.input.ClienteInput;
 import br.com.gusta.algalogapi.domain.model.Cliente;
 import br.com.gusta.algalogapi.domain.repository.ClienteRepository;
 import br.com.gusta.algalogapi.domain.service.CatalogoClienteService;
@@ -7,6 +10,9 @@ import java.util.List;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -26,13 +32,16 @@ public class ClienteController {
 
     private final ClienteRepository clienteRepository;
     private final CatalogoClienteService catalogoClienteService;
+    private final ClienteAssembler clienteAssembler;
 
     @GetMapping
+    @Cacheable("clientes")
     public List<Cliente> listar() {
         return clienteRepository.findAll();
     }
 
     @GetMapping("/{clienteId}")
+    @Cacheable("cliente")
     public ResponseEntity<Cliente> buscar(@PathVariable Long clienteId) {
         return clienteRepository.findById(clienteId)
                 .map(ResponseEntity::ok)
@@ -41,23 +50,37 @@ public class ClienteController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+    @Caching(evict = {
+            @CacheEvict("clientes"),
+            @CacheEvict("cliente")
+    })
     public Cliente adicionar(@Valid @RequestBody Cliente cliente) {
         return catalogoClienteService.salvar(cliente);
     }
 
     @PutMapping("/{clienteId}")
-    public ResponseEntity<Cliente> atualizar(@PathVariable Long clienteId, @Valid @RequestBody Cliente cliente) {
+    @Caching(evict = {
+            @CacheEvict("clientes"),
+            @CacheEvict("cliente")
+    })
+    public ResponseEntity<ClienteModel> atualizar(@PathVariable Long clienteId, @Valid @RequestBody ClienteInput cliente) {
         if (!clienteRepository.existsById(clienteId)) {
             return ResponseEntity.notFound().build();
         }
 
         cliente.setId(clienteId);
-        cliente = catalogoClienteService.salvar(cliente);
 
-        return ResponseEntity.ok(cliente);
+        var clienteEntity = clienteAssembler.toEntity(cliente);
+        var clienteSalvo = catalogoClienteService.salvar(clienteEntity);
+
+        return ResponseEntity.ok(clienteAssembler.toModel(clienteSalvo));
     }
 
     @DeleteMapping("/{clienteId}")
+    @Caching(evict = {
+            @CacheEvict("clientes"),
+            @CacheEvict("cliente")
+    })
     public ResponseEntity<Void> remover(@PathVariable Long clienteId) {
         if (!clienteRepository.existsById(clienteId)) {
             return ResponseEntity.notFound().build();

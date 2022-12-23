@@ -9,6 +9,8 @@ import java.util.List;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,12 +31,14 @@ public class OcorrenciaController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+    @CacheEvict("ocorrencias")
     public OcorrenciaModel registrar(@PathVariable Long entregaId, @Valid @RequestBody OcorrenciaInput ocorrenciaInput) {
         var ocorrenciaRegistrada = registroOcorrenciaService.registrar(entregaId, ocorrenciaInput.getDescricao());
         return ocorrenciaAssembler.toModel(ocorrenciaRegistrada);
     }
 
     @GetMapping
+    @Cacheable("ocorrencias")
     public List<OcorrenciaModel> listar(@PathVariable Long entregaId) {
         var entrega = buscaEntregaService.buscar(entregaId);
         return ocorrenciaAssembler.toCollectionModel(entrega.getOcorrencias());

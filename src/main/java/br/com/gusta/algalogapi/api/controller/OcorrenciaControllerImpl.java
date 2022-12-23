@@ -32,7 +32,7 @@ public class OcorrenciaControllerImpl implements OcorrenciaController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    @CacheEvict("ocorrencias")
+    @CacheEvict(value = "ocorrencias", allEntries = true)
     public OcorrenciaModel registrar(@PathVariable Long entregaId, @Valid @RequestBody OcorrenciaInput ocorrenciaInput) {
         var ocorrenciaRegistrada = registroOcorrenciaService.registrar(entregaId, ocorrenciaInput.getDescricao());
         return ocorrenciaAssembler.toModel(ocorrenciaRegistrada);

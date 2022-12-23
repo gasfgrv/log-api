@@ -55,8 +55,8 @@ public class ClienteControllerImpl implements ClienteController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @Caching(evict = {
-            @CacheEvict("clientes"),
-            @CacheEvict("cliente")
+            @CacheEvict(value = "clientes", allEntries = true),
+            @CacheEvict(value = "cliente", allEntries = true)
     })
     public Cliente adicionar(@Valid @RequestBody ClienteInput cliente) {
         var clienteEntity = clienteAssembler.toEntity(cliente);
@@ -65,8 +65,8 @@ public class ClienteControllerImpl implements ClienteController {
 
     @PutMapping("/{clienteId}")
     @Caching(evict = {
-            @CacheEvict("clientes"),
-            @CacheEvict("cliente")
+            @CacheEvict(value = "clientes", allEntries = true),
+            @CacheEvict(value = "cliente", allEntries = true)
     })
     public ResponseEntity<ClienteModel> atualizar(@PathVariable Long clienteId, @Valid @RequestBody ClienteInput cliente) {
         if (!clienteRepository.existsById(clienteId)) {
@@ -83,8 +83,8 @@ public class ClienteControllerImpl implements ClienteController {
 
     @DeleteMapping("/{clienteId}")
     @Caching(evict = {
-            @CacheEvict("clientes"),
-            @CacheEvict("cliente")
+            @CacheEvict(value = "clientes", allEntries = true),
+            @CacheEvict(value = "cliente", allEntries = true)
     })
     public ResponseEntity<Void> remover(@PathVariable Long clienteId) {
         if (!clienteRepository.existsById(clienteId)) {

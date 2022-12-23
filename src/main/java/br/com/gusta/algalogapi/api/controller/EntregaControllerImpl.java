@@ -38,8 +38,8 @@ public class EntregaControllerImpl implements EntregaController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @Caching(evict = {
-            @CacheEvict("entregas"),
-            @CacheEvict("entrega")
+            @CacheEvict(value = "entregas", allEntries = true),
+            @CacheEvict(value = "entrega", allEntries = true)
     })
     public EntregaModel solicitar(@Valid @RequestBody EntregaInput entregaInput) {
         var novaEntrega = entregaAssembler.toEntity(entregaInput);
@@ -50,8 +50,8 @@ public class EntregaControllerImpl implements EntregaController {
     @PutMapping("/{entregaId}/finalizacao")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Caching(evict = {
-            @CacheEvict("entregas"),
-            @CacheEvict("entrega")
+            @CacheEvict(value = "entregas", allEntries = true),
+            @CacheEvict(value = "entrega", allEntries = true)
     })
     public void finalizar(@PathVariable Long entregaId) {
         finalizacaoEntregaService.finalizar(entregaId);

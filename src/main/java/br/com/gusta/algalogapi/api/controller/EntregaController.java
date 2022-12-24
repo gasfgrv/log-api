@@ -22,7 +22,7 @@ public interface EntregaController {
             description = "Vincula um clienate à entrega e cria a mesma"
     )
     @ApiResponse(
-            responseCode = "200",
+            responseCode = "201",
             description = "Entrega solicitada",
             content = @Content(
                     mediaType = "application/json",

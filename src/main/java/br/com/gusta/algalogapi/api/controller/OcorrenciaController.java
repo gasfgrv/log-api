@@ -20,7 +20,7 @@ public interface OcorrenciaController {
             description = "Vincula uma ocorrência a uma entrega"
     )
     @ApiResponse(
-            responseCode = "200",
+            responseCode = "201",
             description = "Ocorrência registrada",
             content = @Content(
                     mediaType = "application/json",

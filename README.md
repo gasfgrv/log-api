@@ -78,6 +78,9 @@ OpenAPI 3.0 e requisições HTTPS.
 
 ## Contrato da API
 
+<details>
+  <summary>Arquivo para criar a API no Swagger</summary>
+
 ```yaml
 openapi: 3.0.1
 info:
@@ -629,278 +632,92 @@ components:
           type: string
 ```
 
+</details>
+
 ## Endpoints da Aplicação
 
-### /entregas/ {entregaId}/finalizacao
+<details>
+  <summary>Documentação dos endpoints</summary>
+
+### /entregas/{entregaId}/finalizacao
 
 #### PUT
-
-##### Resumo:
-
-Finalizar entrega
-
-##### Descrição:
-
-Finalizar uma determinada entregas a partir do id
-
-##### Parametros
-
-
-| Nome      | Em   | Descrição     | Obrigatório | Schema |
-| --------- | ---- | ------------- | ----------- | ------ |
-| entregaId | path | Id da entrega | Sim         | long   |
-
-##### Respostas
-
-
-| Código | Descrição          |
-| ------ | ------------------ |
-| 200    | Entrega finalizada |
-| 204    | No Content         |
-| 400    | Bad Request        |
-| 404    | Not Found          |
-
-### /clientes/ {clienteId}
+### /clientes/{clienteId}
 
 #### GET
-
-##### Resumo:
-
-Buscar cliente
-
-##### Descrição:
-
-Buscar determinado cliente a partir do id
-
-##### Parametros
-
-
-| Nome      | Em   | Descrição     | Obrigatório | Schema |
-| --------- | ---- | ------------- | ----------- | ------ |
-| clienteId | path | Id do cliente | Sim         | long   |
-
-##### Respostas
-
-
-| Código | Descrição              |
-| ------ | ---------------------- |
-| 200    | Cliente encontrado     |
-| 400    | Bad Request            |
-| 404    | Cliente não encontrado |
-
 #### PUT
-
-##### Resumo:
-
-Atualizar cliente
-
-##### Descrição:
-
-Atualizar dados do cliente
-
-##### Parametros
-
-
-| Nome      | Em   | Descrição     | Obrigatório | Schema |
-| --------- | ---- | ------------- | ----------- | ------ |
-| clienteId | path | Id do cliente | Sim         | long   |
-
-##### Respostas
-
-
-| Código | Descrição         |
-| ------ | ----------------- |
-| 200    | Client atualizado |
-| 400    | Bad Request       |
-| 404    | Not Found         |
-
 #### DELETE
-
-##### Resumo:
-
-Deletar cliente
-
-##### Descrição:
-
-Deletar dados do cliente
-
-##### Parametros
-
-
-| Nome      | Em   | Descrição     | Obrigatório | Schema |
-| --------- | ---- | ------------- | ----------- | ------ |
-| clienteId | path | Id do cliente | Sim         | long   |
-
-##### Respostas
-
-
-| Código | Descrição       |
-| ------ | --------------- |
-| 204    | Cliente apagado |
-| 400    | Bad Request     |
-| 404    | Not Found       |
-
 ### /entregas
 
 #### GET
-
-##### Resumo:
-
-Listar entregas
-
-##### Descrição:
-
-Listar todas as entregas salvas
-
-##### Respostas
-
-
-| Código | Descrição         |
-| ------ | ----------------- |
-| 200    | Todas as entregas |
-| 400    | Bad Request       |
-| 404    | Not Found         |
-
 #### POST
-
-##### Resumo:
-
-Solicitar entrega
-
-##### Descrição:
-
-Vincula um clienate à entrega e cria a mesma
-
-##### Respostas
-
-
-| Código | Descrição          |
-| ------ | ------------------ |
-| 201    | Entrega solicitada |
-| 400    | Bad Request        |
-| 404    | Not Found          |
-
-### /entregas/ {entregaId}/ocorrencias
+### /entregas/{entregaId}/ocorrencias
 
 #### GET
-
-##### Resumo:
-
-Listar ocorrências
-
-##### Descrição:
-
-Listar todas as ocorrências relacionadas a uma entrega
-
-##### Parametros
-
-
-| Nome      | Em   | Descrição     | Obrigatório | Schema |
-| --------- | ---- | ------------- | ----------- | ------ |
-| entregaId | path | Id da entrega | Sim         | long   |
-
-##### Respostas
-
-
-| Código | Descrição            |
-| ------ | -------------------- |
-| 200    | Todos as ocorrências |
-| 400    | Bad Request          |
-| 404    | Not Found            |
-
 #### POST
-
-##### Resumo:
-
-Registrar ocorrencias
-
-##### Descrição:
-
-Vincula uma ocorrência a uma entrega
-
-##### Parametros
-
-
-| Nome      | Em   | Descrição     | Obrigatório | Schema |
-| --------- | ---- | ------------- | ----------- | ------ |
-| entregaId | path | Id da entrega | Sim         | long   |
-
-##### Respostas
-
-
-| Código | Descrição             |
-| ------ | --------------------- |
-| 201    | Ocorrência registrada |
-| 400    | Bad Request           |
-| 404    | Not Found             |
-
 ### /clientes
 
 #### GET
-
-##### Resumo:
-
-Listar clientes
-
-##### Descrição:
-
-Listar todos os clientes salvos
-
-##### Respostas
-
-
-| Código | Descrição         |
-| ------ | ----------------- |
-| 200    | Todos os clientes |
-| 400    | Bad Request       |
-| 404    | Not Found         |
-
 #### POST
-
-##### Resumo:
-
-Salvar cliente
-
-##### Descrição:
-
-Salvar cliente na base
-
-##### Respostas
-
-
-| Código | Descrição     |
-| ------ | ------------- |
-| 201    | Cliente Salvo |
-| 400    | Bad Request   |
-| 404    | Not Found     |
-
-### /entregas/ {entregaId}
+### /entregas/{entregaId}
 
 #### GET
 
-##### Resumo:
+</details>
 
-Buscar entrega
+## Pré-requisitos e como rodar a aplicação/testes
 
-##### Descrição:
+Criar o arquivo `docker-compose.yaml`:
 
-Buscar determinada entrega a partir do id
+```yaml
+version: "3.7"
+services:
+  mariadb:
+    image: mariadb:10.7
+    container_name: algalog_db
+    restart: always
+    networks:
+      - algalog-network
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_PASSWORD: root
+      MYSQL_USER: root
+      MYSQL_DATABASE: algalog
 
-##### Parametros
+networks:
+  algalog-network:
+    driver: bridge
+```
 
+rodar os seguintes comandos:
 
-| Nome      | Em   | Descrição     | Obrigatório | Schema |
-| --------- | ---- | ------------- | ----------- | ------ |
-| entregaId | path | Id da entrega | Sim         | long   |
+```shell
+# Sobe o banco de dados e monta a rede para acesso
+docker-compose up -d
 
-##### Respostas
+# baixa a imagem da API no dockerhub
+docker pull gustosilva/log-api:latest 
 
+# Monta o container e sobe a aplicação
+docker run --detach \
+  --network log-api_algalog-network \
+  --env MARIADB_USER=root \
+  --env MARIADB_PASS=root \
+  --publish 8443:8443 gustosilva/log-api
 
-| Código | Descrição              |
-| ------ | ---------------------- |
-| 200    | Entrega encontrada     |
-| 400    | Bad Request            |
-| 404    | Entrega não encontrada |
+# logs da aplicação
+docker container logs --follow <id_container>
+```
+
+Para quem quiser rodar localmente:
+
+* Instalar o mkcert para ajudar na parte da SSL: [Repositório do mkcert](https://github.com/FiloSottile/mkcert);
+* Seguir passo-a-passo para configurar o
+  certificado: [Enabling Https for local Spring Boot development with mkcert](https://shekhargulati.com/2019/01/19/enabling-https-for-local-spring-boot-development-with-mkcert/);
+* Configurar as variáveis de ambiente MARIADB_PASS e MARIADB_USER.
+* Subir a base de dados pelo docker compose
 
 Coleção para testar os endpoints da aplicação
 
@@ -910,42 +727,6 @@ Obs: Caso ocorra o seguinte erro `SSL peer certificate or SSH remote key was not
 a validação dos certificados, conforme a imagem:
 
 ![img.png](docs/img.png)
-
-## Pré-requisitos e como rodar a aplicação/testes
-
-Para rodar a aplicação via docker:
-
-```shell
-docker pull gustosilva/log-api:latest
-
-docker run gustosilva/log-api:latest -d -p 8080:8080 \
-    --env MARIADB_PASS=[MARIADB_PASS] \
-    --env MARIADB_USER=[MARIADB_USER] 
-```
-
-Para quem quiser rodar localmente:
-
-* Instalar o mkcert para ajudar na parte da SSL: [Repositório do mkcert](https://github.com/FiloSottile/mkcert);
-* Seguir passo-a-passo para configurar o
-  certificado: [Enabling Https for local Spring Boot development with mkcert](https://shekhargulati.com/2019/01/19/enabling-https-for-local-spring-boot-development-with-mkcert/);
-* Configurar as variáveis de ambiente MARIADB_PASS e MARIADB_USER.
-
-Para quem quiser o mariadb via docker-compose, segue exemplo do arquivo de configuração:
-
-```yaml
-version: "3.7"
-services:
-  mariadb:
-    image: mariadb:10.7
-    restart: always
-    ports:
-      - "3306:3306"
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_PASSWORD: root
-      MYSQL_USER: root
-      MYSQL_DATABASE: algalog
-```
 
 ## Tecnologias utilizadas
 

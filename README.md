@@ -83,343 +83,341 @@ OpenAPI 3.0 e requisições HTTPS.
 
 ```json
 {
-  "openapi":"3.0.1",
-  "info":{
-    "title":"Log Api",
-    "description":"Aplicação desenvolvida para testes.",
-    "contact":{
-      "name":"gasfgrv",
-      "url":"https://github.com/gasfgrv",
-      "email":"gustavo_almeida11@hotmail.com"
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Log Api",
+    "description": "Aplicação desenvolvida para testes.",
+    "contact": {
+      "name": "gasfgrv",
+      "url": "https://github.com/gasfgrv",
+      "email": "gustavo_almeida11@hotmail.com"
     },
-    "license":{
-      "name":"Apache License Version 2.0",
-      "url":"https://www.apache.org/licenses/LICENSE-2.0"
+    "license": {
+      "name": "Apache License Version 2.0",
+      "url": "https://www.apache.org/licenses/LICENSE-2.0"
     },
-    "version":"v1"
+    "version": "v1"
   },
-  "servers":[
+  "servers": [
     {
-      "url":"https://localhost:8443/",
-      "description":"Generated server url"
+      "url": "https://localhost:8443/",
+      "description": "Generated server url"
     }
   ],
-  "tags":[
+  "tags": [
     {
-      "name":"Ocorrências",
-      "description":"Endpoint para tratamento de Ocorrências relacionadas a uma entrega"
+      "name": "Ocorrências",
+      "description": "Endpoint para tratamento de Ocorrências relacionadas a uma entrega"
     },
     {
-      "name":"Clientes",
-      "description":"Endpoint para manipulação dos dados de um cliente"
+      "name": "Clientes",
+      "description": "Endpoint para manipulação dos dados de um cliente"
     },
     {
-      "name":"Entregas",
-      "description":"Endpoint para tratamento das entregas"
+      "name": "Entregas",
+      "description": "Endpoint para tratamento das entregas"
     }
   ],
-  "paths":{
-    "/entregas/{entregaId}/finalizacao":{
-      "put":{
-        "tags":[
+  "paths": {
+    "/entregas/{entregaId}/finalizacao": {
+      "put": {
+        "tags": [
           "Entregas"
         ],
-        "summary":"Finalizar entrega",
-        "description":"Finalizar uma determinada entregas a partir do id",
-        "operationId":"finalizar",
-        "parameters":[
+        "summary": "Finalizar entrega",
+        "description": "Finalizar uma determinada entregas a partir do id",
+        "operationId": "finalizar",
+        "parameters": [
           {
-            "name":"entregaId",
-            "in":"path",
-            "description":"Id da entrega",
-            "required":true,
-            "schema":{
-              "type":"integer",
-              "format":"int64"
+            "name": "entregaId",
+            "in": "path",
+            "description": "Id da entrega",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
             }
           }
         ],
-        "responses":{
-          "404":{
-            "description":"Not Found",
-            "content":{
-              "application/json":{
-                "schema":{
-                  "$ref":"#/components/schemas/Problema"
+        "responses": {
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problema"
                 }
               }
             }
           },
-          "400":{
-            "description":"Bad Request",
-            "content":{
-              "application/json":{
-                "schema":{
-                  "$ref":"#/components/schemas/Problema"
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problema"
                 }
               }
             }
           },
-          "200":{
-            "description":"Entrega finalizada"
+          "200": {
+            "description": "Entrega finalizada"
           },
-          "204":{
-            "description":"No Content"
+          "204": {
+            "description": "No Content"
           }
         }
       }
     },
-    "/clientes/{clienteId}":{
-      "get":{
-        "tags":[
+    "/clientes/{clienteId}": {
+      "get": {
+        "tags": [
           "Clientes"
         ],
-        "summary":"Buscar cliente",
-        "description":"Buscar determinado cliente a partir do id",
-        "operationId":"buscar_1",
-        "parameters":[
+        "summary": "Buscar cliente",
+        "description": "Buscar determinado cliente a partir do id",
+        "operationId": "buscar_1",
+        "parameters": [
           {
-            "name":"clienteId",
-            "in":"path",
-            "description":"Id do cliente",
-            "required":true,
-            "schema":{
-              "type":"integer",
-              "format":"int64"
+            "name": "clienteId",
+            "in": "path",
+            "description": "Id do cliente",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
             }
           }
         ],
-        "responses":{
-          "404":{
-            "description":"Cliente não encontrado",
-            "content":{
-              "application/json":{
-
+        "responses": {
+          "404": {
+            "description": "Cliente não encontrado",
+            "content": {
+              "application/json": {
               }
             }
           },
-          "400":{
-            "description":"Bad Request",
-            "content":{
-              "application/json":{
-                "schema":{
-                  "$ref":"#/components/schemas/Problema"
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problema"
                 }
               }
             }
           },
-          "200":{
-            "description":"Cliente encontrado",
-            "content":{
-              "application/json":{
-                "schema":{
-                  "$ref":"#/components/schemas/Cliente"
+          "200": {
+            "description": "Cliente encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Cliente"
                 }
               }
             }
           }
         }
       },
-      "put":{
-        "tags":[
+      "put": {
+        "tags": [
           "Clientes"
         ],
-        "summary":"Atualizar cliente",
-        "description":"Atualizar dados do cliente",
-        "operationId":"atualizar",
-        "parameters":[
+        "summary": "Atualizar cliente",
+        "description": "Atualizar dados do cliente",
+        "operationId": "atualizar",
+        "parameters": [
           {
-            "name":"clienteId",
-            "in":"path",
-            "description":"Id do cliente",
-            "required":true,
-            "schema":{
-              "type":"integer",
-              "format":"int64"
+            "name": "clienteId",
+            "in": "path",
+            "description": "Id do cliente",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
             }
           }
         ],
-        "requestBody":{
-          "description":"Formulário de atualização",
-          "content":{
-            "application/json":{
-              "schema":{
-                "$ref":"#/components/schemas/ClienteInput"
+        "requestBody": {
+          "description": "Formulário de atualização",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClienteInput"
               }
             }
           },
-          "required":true
+          "required": true
         },
-        "responses":{
-          "404":{
-            "description":"Not Found",
-            "content":{
-              "application/json":{
-                "schema":{
-                  "$ref":"#/components/schemas/Problema"
+        "responses": {
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problema"
                 }
               }
             }
           },
-          "400":{
-            "description":"Bad Request",
-            "content":{
-              "application/json":{
-                "schema":{
-                  "$ref":"#/components/schemas/Problema"
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problema"
                 }
               }
             }
           },
-          "200":{
-            "description":"Cliente atualizado",
-            "content":{
-              "application/json":{
-                "schema":{
-                  "$ref":"#/components/schemas/ClienteModel"
+          "200": {
+            "description": "Cliente atualizado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClienteModel"
                 }
               }
             }
           }
         }
       },
-      "delete":{
-        "tags":[
+      "delete": {
+        "tags": [
           "Clientes"
         ],
-        "summary":"Deletar cliente",
-        "description":"Deletar dados do cliente",
-        "operationId":"remover",
-        "parameters":[
+        "summary": "Deletar cliente",
+        "description": "Deletar dados do cliente",
+        "operationId": "remover",
+        "parameters": [
           {
-            "name":"clienteId",
-            "in":"path",
-            "description":"Id do cliente",
-            "required":true,
-            "schema":{
-              "type":"integer",
-              "format":"int64"
+            "name": "clienteId",
+            "in": "path",
+            "description": "Id do cliente",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
             }
           }
         ],
-        "responses":{
-          "404":{
-            "description":"Not Found",
-            "content":{
-              "application/json":{
-                "schema":{
-                  "$ref":"#/components/schemas/Problema"
+        "responses": {
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problema"
                 }
               }
             }
           },
-          "400":{
-            "description":"Bad Request",
-            "content":{
-              "application/json":{
-                "schema":{
-                  "$ref":"#/components/schemas/Problema"
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problema"
                 }
               }
             }
           },
-          "204":{
-            "description":"Cliente apagado",
-            "content":{
-              "application/json":{
-
+          "204": {
+            "description": "Cliente apagado",
+            "content": {
+              "application/json": {
               }
             }
           }
         }
       }
     },
-    "/entregas":{
-      "get":{
-        "tags":[
+    "/entregas": {
+      "get": {
+        "tags": [
           "Entregas"
         ],
-        "summary":"Listar entregas",
-        "description":"Listar todas as entregas salvas",
-        "operationId":"listar",
-        "responses":{
-          "404":{
-            "description":"Not Found",
-            "content":{
-              "application/json":{
-                "schema":{
-                  "$ref":"#/components/schemas/Problema"
+        "summary": "Listar entregas",
+        "description": "Listar todas as entregas salvas",
+        "operationId": "listar",
+        "responses": {
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problema"
                 }
               }
             }
           },
-          "400":{
-            "description":"Bad Request",
-            "content":{
-              "application/json":{
-                "schema":{
-                  "$ref":"#/components/schemas/Problema"
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problema"
                 }
               }
             }
           },
-          "200":{
-            "description":"Todas as entregas",
-            "content":{
-              "application/json":{
-                "schema":{
-                  "$ref":"#/components/schemas/EntregaModel"
+          "200": {
+            "description": "Todas as entregas",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EntregaModel"
                 }
               }
             }
           }
         }
       },
-      "post":{
-        "tags":[
+      "post": {
+        "tags": [
           "Entregas"
         ],
-        "summary":"Solicitar entrega",
-        "description":"Vincula um clienate à entrega e cria a mesma",
-        "operationId":"solicitar",
-        "requestBody":{
-          "description":"Formulário de cadastro",
-          "content":{
-            "application/json":{
-              "schema":{
-                "$ref":"#/components/schemas/EntregaInput"
+        "summary": "Solicitar entrega",
+        "description": "Vincula um clienate à entrega e cria a mesma",
+        "operationId": "solicitar",
+        "requestBody": {
+          "description": "Formulário de cadastro",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EntregaInput"
               }
             }
           },
-          "required":true
+          "required": true
         },
-        "responses":{
-          "404":{
-            "description":"Not Found",
-            "content":{
-              "application/json":{
-                "schema":{
-                  "$ref":"#/components/schemas/Problema"
+        "responses": {
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problema"
                 }
               }
             }
           },
-          "400":{
-            "description":"Bad Request",
-            "content":{
-              "application/json":{
-                "schema":{
-                  "$ref":"#/components/schemas/Problema"
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problema"
                 }
               }
             }
           },
-          "201":{
-            "description":"Entrega solicitada",
-            "content":{
-              "application/json":{
-                "schema":{
-                  "$ref":"#/components/schemas/EntregaModel"
+          "201": {
+            "description": "Entrega solicitada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EntregaModel"
                 }
               }
             }
@@ -427,116 +425,116 @@ OpenAPI 3.0 e requisições HTTPS.
         }
       }
     },
-    "/entregas/{entregaId}/ocorrencias":{
-      "get":{
-        "tags":[
+    "/entregas/{entregaId}/ocorrencias": {
+      "get": {
+        "tags": [
           "Ocorrências"
         ],
-        "summary":"Listar ocorrências",
-        "description":"Listar todas as ocorrências relacionadas a uma entrega",
-        "operationId":"listar_1",
-        "parameters":[
+        "summary": "Listar ocorrências",
+        "description": "Listar todas as ocorrências relacionadas a uma entrega",
+        "operationId": "listar_1",
+        "parameters": [
           {
-            "name":"entregaId",
-            "in":"path",
-            "description":"Id da entrega",
-            "required":true,
-            "schema":{
-              "type":"integer",
-              "format":"int64"
+            "name": "entregaId",
+            "in": "path",
+            "description": "Id da entrega",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
             }
           }
         ],
-        "responses":{
-          "404":{
-            "description":"Not Found",
-            "content":{
-              "application/json":{
-                "schema":{
-                  "$ref":"#/components/schemas/Problema"
+        "responses": {
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problema"
                 }
               }
             }
           },
-          "400":{
-            "description":"Bad Request",
-            "content":{
-              "application/json":{
-                "schema":{
-                  "$ref":"#/components/schemas/Problema"
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problema"
                 }
               }
             }
           },
-          "200":{
-            "description":"Todos as ocorrências",
-            "content":{
-              "application/json":{
-                "schema":{
-                  "$ref":"#/components/schemas/OcorrenciaModel"
+          "200": {
+            "description": "Todos as ocorrências",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OcorrenciaModel"
                 }
               }
             }
           }
         }
       },
-      "post":{
-        "tags":[
+      "post": {
+        "tags": [
           "Ocorrências"
         ],
-        "summary":"Registrar ocorrencias",
-        "description":"Vincula uma ocorrência a uma entrega",
-        "operationId":"registrar",
-        "parameters":[
+        "summary": "Registrar ocorrencias",
+        "description": "Vincula uma ocorrência a uma entrega",
+        "operationId": "registrar",
+        "parameters": [
           {
-            "name":"entregaId",
-            "in":"path",
-            "description":"Id da entrega",
-            "required":true,
-            "schema":{
-              "type":"integer",
-              "format":"int64"
+            "name": "entregaId",
+            "in": "path",
+            "description": "Id da entrega",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
             }
           }
         ],
-        "requestBody":{
-          "description":"dados da ocorrência",
-          "content":{
-            "application/json":{
-              "schema":{
-                "$ref":"#/components/schemas/OcorrenciaInput"
+        "requestBody": {
+          "description": "dados da ocorrência",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OcorrenciaInput"
               }
             }
           },
-          "required":true
+          "required": true
         },
-        "responses":{
-          "404":{
-            "description":"Not Found",
-            "content":{
-              "application/json":{
-                "schema":{
-                  "$ref":"#/components/schemas/Problema"
+        "responses": {
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problema"
                 }
               }
             }
           },
-          "400":{
-            "description":"Bad Request",
-            "content":{
-              "application/json":{
-                "schema":{
-                  "$ref":"#/components/schemas/Problema"
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problema"
                 }
               }
             }
           },
-          "201":{
-            "description":"Ocorrência registrada",
-            "content":{
-              "application/json":{
-                "schema":{
-                  "$ref":"#/components/schemas/OcorrenciaModel"
+          "201": {
+            "description": "Ocorrência registrada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OcorrenciaModel"
                 }
               }
             }
@@ -544,92 +542,92 @@ OpenAPI 3.0 e requisições HTTPS.
         }
       }
     },
-    "/clientes":{
-      "get":{
-        "tags":[
+    "/clientes": {
+      "get": {
+        "tags": [
           "Clientes"
         ],
-        "summary":"Listar clientes",
-        "description":"Listar todos os clientes salvos",
-        "operationId":"listar_2",
-        "responses":{
-          "404":{
-            "description":"Not Found",
-            "content":{
-              "application/json":{
-                "schema":{
-                  "$ref":"#/components/schemas/Problema"
+        "summary": "Listar clientes",
+        "description": "Listar todos os clientes salvos",
+        "operationId": "listar_2",
+        "responses": {
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problema"
                 }
               }
             }
           },
-          "400":{
-            "description":"Bad Request",
-            "content":{
-              "application/json":{
-                "schema":{
-                  "$ref":"#/components/schemas/Problema"
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problema"
                 }
               }
             }
           },
-          "200":{
-            "description":"Todos os clientes",
-            "content":{
-              "application/json":{
-                "schema":{
-                  "$ref":"#/components/schemas/ClienteResumoModel"
+          "200": {
+            "description": "Todos os clientes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClienteResumoModel"
                 }
               }
             }
           }
         }
       },
-      "post":{
-        "tags":[
+      "post": {
+        "tags": [
           "Clientes"
         ],
-        "summary":"Salvar cliente",
-        "description":"Salvar cliente na base",
-        "operationId":"adicionar",
-        "requestBody":{
-          "description":"Formulário de cadastro",
-          "content":{
-            "application/json":{
-              "schema":{
-                "$ref":"#/components/schemas/ClienteInput"
+        "summary": "Salvar cliente",
+        "description": "Salvar cliente na base",
+        "operationId": "adicionar",
+        "requestBody": {
+          "description": "Formulário de cadastro",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClienteInput"
               }
             }
           },
-          "required":true
+          "required": true
         },
-        "responses":{
-          "404":{
-            "description":"Not Found",
-            "content":{
-              "application/json":{
-                "schema":{
-                  "$ref":"#/components/schemas/Problema"
+        "responses": {
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problema"
                 }
               }
             }
           },
-          "400":{
-            "description":"Bad Request",
-            "content":{
-              "application/json":{
-                "schema":{
-                  "$ref":"#/components/schemas/Problema"
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problema"
                 }
               }
             }
           },
-          "201":{
-            "description":"Cliente Salvo",
-            "content":{
-              "application/json":{
-                "schema":{
-                  "$ref":"#/components/schemas/Cliente"
+          "201": {
+            "description": "Cliente Salvo",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Cliente"
                 }
               }
             }
@@ -637,51 +635,50 @@ OpenAPI 3.0 e requisições HTTPS.
         }
       }
     },
-    "/entregas/{entregaId}":{
-      "get":{
-        "tags":[
+    "/entregas/{entregaId}": {
+      "get": {
+        "tags": [
           "Entregas"
         ],
-        "summary":"Buscar entrega",
-        "description":"Buscar determinada entrega a partir do id",
-        "operationId":"buscar",
-        "parameters":[
+        "summary": "Buscar entrega",
+        "description": "Buscar determinada entrega a partir do id",
+        "operationId": "buscar",
+        "parameters": [
           {
-            "name":"entregaId",
-            "in":"path",
-            "description":"Id da entrega",
-            "required":true,
-            "schema":{
-              "type":"integer",
-              "format":"int64"
+            "name": "entregaId",
+            "in": "path",
+            "description": "Id da entrega",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
             }
           }
         ],
-        "responses":{
-          "404":{
-            "description":"Entrega não encontrada",
-            "content":{
-              "application/json":{
-
+        "responses": {
+          "404": {
+            "description": "Entrega não encontrada",
+            "content": {
+              "application/json": {
               }
             }
           },
-          "400":{
-            "description":"Bad Request",
-            "content":{
-              "application/json":{
-                "schema":{
-                  "$ref":"#/components/schemas/Problema"
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problema"
                 }
               }
             }
           },
-          "200":{
-            "description":"Entrega encontrada",
-            "content":{
-              "application/json":{
-                "schema":{
-                  "$ref":"#/components/schemas/EntregaModel"
+          "200": {
+            "description": "Entrega encontrada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EntregaModel"
                 }
               }
             }
@@ -690,247 +687,247 @@ OpenAPI 3.0 e requisições HTTPS.
       }
     }
   },
-  "components":{
-    "schemas":{
-      "Campo":{
-        "type":"object",
-        "properties":{
-          "nome":{
-            "type":"string"
+  "components": {
+    "schemas": {
+      "Campo": {
+        "type": "object",
+        "properties": {
+          "nome": {
+            "type": "string"
           },
-          "mensagem":{
-            "type":"string"
+          "mensagem": {
+            "type": "string"
           }
         }
       },
-      "Problema":{
-        "type":"object",
-        "properties":{
-          "status":{
-            "type":"integer",
-            "format":"int32"
+      "Problema": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "format": "int32"
           },
-          "dataHora":{
-            "type":"string",
-            "format":"date-time"
+          "dataHora": {
+            "type": "string",
+            "format": "date-time"
           },
-          "titulo":{
-            "type":"string"
+          "titulo": {
+            "type": "string"
           },
-          "campos":{
-            "type":"array",
-            "items":{
-              "$ref":"#/components/schemas/Campo"
+          "campos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Campo"
             }
           }
         }
       },
-      "ClienteInput":{
-        "required":[
+      "ClienteInput": {
+        "required": [
           "email",
           "nome",
           "telefone"
         ],
-        "type":"object",
-        "properties":{
-          "id":{
-            "type":"integer",
-            "format":"int64"
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
           },
-          "nome":{
-            "maxLength":60,
-            "minLength":0,
-            "type":"string"
+          "nome": {
+            "maxLength": 60,
+            "minLength": 0,
+            "type": "string"
           },
-          "email":{
-            "maxLength":255,
-            "minLength":0,
-            "type":"string"
+          "email": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string"
           },
-          "telefone":{
-            "maxLength":20,
-            "minLength":0,
-            "type":"string"
+          "telefone": {
+            "maxLength": 20,
+            "minLength": 0,
+            "type": "string"
           }
         }
       },
-      "ClienteModel":{
-        "type":"object",
-        "properties":{
-          "nome":{
-            "type":"string"
+      "ClienteModel": {
+        "type": "object",
+        "properties": {
+          "nome": {
+            "type": "string"
           },
-          "email":{
-            "type":"string"
+          "email": {
+            "type": "string"
           },
-          "telefone":{
-            "type":"string"
+          "telefone": {
+            "type": "string"
           }
         }
       },
-      "ClienteIdInput":{
-        "type":"object",
-        "properties":{
-          "id":{
-            "type":"integer",
-            "format":"int64"
+      "ClienteIdInput": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
           }
         }
       },
-      "DestinatarioInput":{
-        "required":[
+      "DestinatarioInput": {
+        "required": [
           "bairro",
           "complemento",
           "logradouro",
           "nome",
           "numero"
         ],
-        "type":"object",
-        "properties":{
-          "nome":{
-            "type":"string"
+        "type": "object",
+        "properties": {
+          "nome": {
+            "type": "string"
           },
-          "logradouro":{
-            "type":"string"
+          "logradouro": {
+            "type": "string"
           },
-          "numero":{
-            "type":"string"
+          "numero": {
+            "type": "string"
           },
-          "complemento":{
-            "type":"string"
+          "complemento": {
+            "type": "string"
           },
-          "bairro":{
-            "type":"string"
+          "bairro": {
+            "type": "string"
           }
         }
       },
-      "EntregaInput":{
-        "required":[
+      "EntregaInput": {
+        "required": [
           "cliente",
           "destinatario",
           "taxa"
         ],
-        "type":"object",
-        "properties":{
-          "cliente":{
-            "$ref":"#/components/schemas/ClienteIdInput"
+        "type": "object",
+        "properties": {
+          "cliente": {
+            "$ref": "#/components/schemas/ClienteIdInput"
           },
-          "destinatario":{
-            "$ref":"#/components/schemas/DestinatarioInput"
+          "destinatario": {
+            "$ref": "#/components/schemas/DestinatarioInput"
           },
-          "taxa":{
-            "type":"number"
+          "taxa": {
+            "type": "number"
           }
         }
       },
-      "ClienteResumoModel":{
-        "type":"object",
-        "properties":{
-          "id":{
-            "type":"integer",
-            "format":"int64"
+      "ClienteResumoModel": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
           },
-          "nome":{
-            "type":"string"
+          "nome": {
+            "type": "string"
           }
         }
       },
-      "DestinatarioModel":{
-        "type":"object",
-        "properties":{
-          "nome":{
-            "type":"string"
+      "DestinatarioModel": {
+        "type": "object",
+        "properties": {
+          "nome": {
+            "type": "string"
           },
-          "logradouro":{
-            "type":"string"
+          "logradouro": {
+            "type": "string"
           },
-          "numero":{
-            "type":"string"
+          "numero": {
+            "type": "string"
           },
-          "complemento":{
-            "type":"string"
+          "complemento": {
+            "type": "string"
           },
-          "bairro":{
-            "type":"string"
+          "bairro": {
+            "type": "string"
           }
         }
       },
-      "EntregaModel":{
-        "type":"object",
-        "properties":{
-          "id":{
-            "type":"integer",
-            "format":"int64"
+      "EntregaModel": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
           },
-          "cliente":{
-            "$ref":"#/components/schemas/ClienteResumoModel"
+          "cliente": {
+            "$ref": "#/components/schemas/ClienteResumoModel"
           },
-          "destinatario":{
-            "$ref":"#/components/schemas/DestinatarioModel"
+          "destinatario": {
+            "$ref": "#/components/schemas/DestinatarioModel"
           },
-          "taxa":{
-            "type":"number"
+          "taxa": {
+            "type": "number"
           },
-          "status":{
-            "type":"string",
-            "enum":[
+          "status": {
+            "type": "string",
+            "enum": [
               "PENDENTE",
               "FINALIZADA",
               "CANCELADA"
             ]
           },
-          "dataPedido":{
-            "type":"string",
-            "format":"date-time"
+          "dataPedido": {
+            "type": "string",
+            "format": "date-time"
           },
-          "dataFinalizacao":{
-            "type":"string",
-            "format":"date-time"
+          "dataFinalizacao": {
+            "type": "string",
+            "format": "date-time"
           }
         }
       },
-      "OcorrenciaInput":{
-        "required":[
+      "OcorrenciaInput": {
+        "required": [
           "descricao"
         ],
-        "type":"object",
-        "properties":{
-          "descricao":{
-            "type":"string"
+        "type": "object",
+        "properties": {
+          "descricao": {
+            "type": "string"
           }
         }
       },
-      "OcorrenciaModel":{
-        "type":"object",
-        "properties":{
-          "id":{
-            "type":"integer",
-            "format":"int64"
+      "OcorrenciaModel": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
           },
-          "descricao":{
-            "type":"string"
+          "descricao": {
+            "type": "string"
           },
-          "dataRegistro":{
-            "type":"string",
-            "format":"date-time"
+          "dataRegistro": {
+            "type": "string",
+            "format": "date-time"
           }
         }
       },
-      "Cliente":{
-        "type":"object",
-        "properties":{
-          "id":{
-            "type":"integer",
-            "format":"int64"
+      "Cliente": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
           },
-          "nome":{
-            "type":"string"
+          "nome": {
+            "type": "string"
           },
-          "email":{
-            "type":"string"
+          "email": {
+            "type": "string"
           },
-          "telefone":{
-            "type":"string"
+          "telefone": {
+            "type": "string"
           }
         }
       }
@@ -961,13 +958,13 @@ Finalizar uma determinada entregas a partir do id
 ##### Parameters
 
 | Name      | Located in | Description   | Required | Schema |
-| --------- | ---------- | ------------- | -------- | ------ |
+|-----------|------------|---------------|----------|--------|
 | entregaId | path       | Id da entrega | Yes      | long   |
 
 ##### Responses
 
 | Code | Description        |
-| ---- | ------------------ |
+|------|--------------------|
 | 200  | Entrega finalizada |
 | 204  | No Content         |
 | 400  | Bad Request        |
@@ -988,13 +985,13 @@ Buscar determinado cliente a partir do id
 ##### Parameters
 
 | Name      | Located in | Description   | Required | Schema |
-| --------- | ---------- | ------------- | -------- | ------ |
+|-----------|------------|---------------|----------|--------|
 | clienteId | path       | Id do cliente | Yes      | long   |
 
 ##### Responses
 
 | Code | Description            |
-| ---- | ---------------------- |
+|------|------------------------|
 | 200  | Cliente encontrado     |
 | 400  | Bad Request            |
 | 404  | Cliente não encontrado |
@@ -1012,13 +1009,13 @@ Atualizar dados do cliente
 ##### Parameters
 
 | Name      | Located in | Description   | Required | Schema |
-| --------- | ---------- | ------------- | -------- | ------ |
+|-----------|------------|---------------|----------|--------|
 | clienteId | path       | Id do cliente | Yes      | long   |
 
 ##### Responses
 
 | Code | Description        |
-| ---- | ------------------ |
+|------|--------------------|
 | 200  | Cliente atualizado |
 | 400  | Bad Request        |
 | 404  | Not Found          |
@@ -1036,13 +1033,13 @@ Deletar dados do cliente
 ##### Parameters
 
 | Name      | Located in | Description   | Required | Schema |
-| --------- | ---------- | ------------- | -------- | ------ |
+|-----------|------------|---------------|----------|--------|
 | clienteId | path       | Id do cliente | Yes      | long   |
 
 ##### Responses
 
 | Code | Description     |
-| ---- | --------------- |
+|------|-----------------|
 | 204  | Cliente apagado |
 | 400  | Bad Request     |
 | 404  | Not Found       |
@@ -1062,7 +1059,7 @@ Listar todas as entregas salvas
 ##### Responses
 
 | Code | Description       |
-| ---- | ----------------- |
+|------|-------------------|
 | 200  | Todas as entregas |
 | 400  | Bad Request       |
 | 404  | Not Found         |
@@ -1080,7 +1077,7 @@ Vincula um clienate à entrega e cria a mesma
 ##### Responses
 
 | Code | Description        |
-| ---- | ------------------ |
+|------|--------------------|
 | 201  | Entrega solicitada |
 | 400  | Bad Request        |
 | 404  | Not Found          |
@@ -1100,13 +1097,13 @@ Listar todas as ocorrências relacionadas a uma entrega
 ##### Parameters
 
 | Name      | Located in | Description   | Required | Schema |
-| --------- | ---------- | ------------- | -------- | ------ |
+|-----------|------------|---------------|----------|--------|
 | entregaId | path       | Id da entrega | Yes      | long   |
 
 ##### Responses
 
 | Code | Description          |
-| ---- | -------------------- |
+|------|----------------------|
 | 200  | Todos as ocorrências |
 | 400  | Bad Request          |
 | 404  | Not Found            |
@@ -1124,13 +1121,13 @@ Vincula uma ocorrência a uma entrega
 ##### Parameters
 
 | Name      | Located in | Description   | Required | Schema |
-| --------- | ---------- | ------------- | -------- | ------ |
+|-----------|------------|---------------|----------|--------|
 | entregaId | path       | Id da entrega | Yes      | long   |
 
 ##### Responses
 
 | Code | Description           |
-| ---- | --------------------- |
+|------|-----------------------|
 | 201  | Ocorrência registrada |
 | 400  | Bad Request           |
 | 404  | Not Found             |
@@ -1150,7 +1147,7 @@ Listar todos os clientes salvos
 ##### Responses
 
 | Code | Description       |
-| ---- | ----------------- |
+|------|-------------------|
 | 200  | Todos os clientes |
 | 400  | Bad Request       |
 | 404  | Not Found         |
@@ -1168,7 +1165,7 @@ Salvar cliente na base
 ##### Responses
 
 | Code | Description   |
-| ---- | ------------- |
+|------|---------------|
 | 201  | Cliente Salvo |
 | 400  | Bad Request   |
 | 404  | Not Found     |
@@ -1188,23 +1185,33 @@ Buscar determinada entrega a partir do id
 ##### Parameters
 
 | Name      | Located in | Description   | Required | Schema |
-| --------- | ---------- | ------------- | -------- | ------ |
+|-----------|------------|---------------|----------|--------|
 | entregaId | path       | Id da entrega | Yes      | long   |
 
 ##### Responses
 
 | Code | Description            |
-| ---- | ---------------------- |
+|------|------------------------|
 | 200  | Entrega encontrada     |
 | 400  | Bad Request            |
 | 404  | Entrega não encontrada |
-
 
 </details>
 
 ## Pré-requisitos e como rodar a aplicação/testes
 
-Criar o arquivo `docker-compose.yaml`:
+<details><summary>Via docker</summary>
+
+* Instalar o mkcert para ajudar na parte da SSL: [Repositório do mkcert](https://github.com/FiloSottile/mkcert)
+    * Seguir passo-a-passo para configurar o
+      certificado: [Enabling Https for local Spring Boot development with mkcert](https://shekhargulati.com/2019/01/19/enabling-https-for-local-spring-boot-development-with-mkcert/)
+* Baixar a imagem no Docker Hub
+
+```shell
+docker pull gustosilva/log-api:latest
+```
+
+* Criar o arquivo `docker-compose.yaml`:
 
 ```yaml
 version: "3.7"
@@ -1228,35 +1235,82 @@ networks:
     driver: bridge
 ```
 
-rodar os seguintes comandos:
+* Rodar o comando para subir o MariaDB diretório em que se encontra o arquivo do docker compose:
 
 ```shell
-# Sobe o banco de dados e monta a rede para acesso
 docker-compose up -d
+```
 
-# baixa a imagem da API no dockerhub
-docker pull gustosilva/log-api:latest 
+* Rodar o container a partir da imagem baixada:
+    * Obs: usando a flag `--detach` o container será executado em segundo plano, e a resposta do comando será o id do
+      container criado.
 
-# Monta o container e sobe a aplicação
+```shell
 docker run --detach \
   --network log-api_algalog-network \
   --env MARIADB_USER=root \
   --env MARIADB_PASS=root \
   --publish 8443:8443 gustosilva/log-api
+``` 
 
-# logs da aplicação
+* Para acompanhar os logs da API, basta roda o seguinte comando:
+
+```shell
 docker container logs --follow <id_container>
 ```
 
-Para quem quiser rodar localmente:
+</details>
 
-* Instalar o mkcert para ajudar na parte da SSL: [Repositório do mkcert](https://github.com/FiloSottile/mkcert);
-* Seguir passo-a-passo para configurar o
-  certificado: [Enabling Https for local Spring Boot development with mkcert](https://shekhargulati.com/2019/01/19/enabling-https-for-local-spring-boot-development-with-mkcert/);
-* Configurar as variáveis de ambiente MARIADB_PASS e MARIADB_USER.
-* Subir a base de dados pelo docker compose
+<details><summary>Via Intellij/Eclipse</summary>
 
-Coleção para testar os endpoints da aplicação
+* Instalar o mkcert para ajudar na parte da SSL: [Repositório do mkcert](https://github.com/FiloSottile/mkcert)
+    * Seguir passo-a-passo para configurar o
+      certificado: [Enabling Https for local Spring Boot development with mkcert](https://shekhargulati.com/2019/01/19/enabling-https-for-local-spring-boot-development-with-mkcert/)
+* Instalar JDK 11 ou superior do Java e a IDE de preferência: [OpenJDK: Download and install](https://openjdk.org/install/)
+* Configurar as variáveis de ambiente `MARIADB_PASS` e `MARIADB_USER`:
+  * Intellij: https://www.jetbrains.com/help/objc/add-environment-variables-and-program-arguments.html
+  * Eclipse: https://stackoverflow.com/questions/7048216/environment-variables-in-eclipse
+* Instalar docker e docker-compose: 
+  * Docker: [Docker Engine installation overview | Docker Documentation](https://docs.docker.com/engine/install/)
+  * Docker Compose: [Overview | Docker Documentation](https://docs.docker.com/compose/)
+* Criar o arquivo `docker-compose.yaml`:
+
+```yaml
+version: "3.7"
+services:
+  mariadb:
+    image: mariadb:10.7
+    container_name: algalog_db
+    restart: always
+    networks:
+      - algalog-network
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_PASSWORD: root
+      MYSQL_USER: root
+      MYSQL_DATABASE: algalog
+
+networks:
+  algalog-network:
+    driver: bridge
+```
+
+* Sobir o banco de dados e rede para acesso:
+
+```shell
+docker-compose up -d
+```
+
+* Rodar a aplicação na sua IDE
+    * Obs: Caso a aplicação lance a seguinte exeção `Caused by: java.net.UnknownHostException: algalog_db`, basta abrir
+      o arquivo `application.yml` e alterar a propriedade `spring.datasource.url` trocando `algalog_db`
+      por `localhost:3306`
+
+</details>
+
+**Coleção para testar os endpoints da aplicação**
 
 [![Run in Insomnia}](https://insomnia.rest/images/run.svg)](https://insomnia.rest/run/?label=log-api&uri=https%3A%2F%2Fraw.githubusercontent.com%2Fgasfgrv%2Flog-api%2Fmaster%2Falga-log-api.json)
 

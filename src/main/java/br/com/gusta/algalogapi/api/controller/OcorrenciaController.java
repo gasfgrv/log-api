@@ -15,36 +15,15 @@ import java.util.List;
 
 @Tag(name = "Ocorrências", description = "Endpoint para tratamento de Ocorrências relacionadas a uma entrega")
 public interface OcorrenciaController {
-    @Operation(
-            summary = "Registrar ocorrencias",
-            description = "Vincula uma ocorrência a uma entrega"
-    )
-    @ApiResponse(
-            responseCode = "201",
-            description = "Ocorrência registrada",
-            content = @Content(
-                    mediaType = "application/json",
-                    schema = @Schema(
-                            implementation = OcorrenciaModel.class
-                    )
-            )
-    )
-    OcorrenciaModel registrar(@Parameter(name = "entregaId", in = ParameterIn.PATH, description = "Id da entrega", required = true) Long entregaId, @RequestBody(description = "dados da ocorrência", required = true, content = @Content(mediaType = "application/json", schema = @Schema(implementation = OcorrenciaInput.class))) OcorrenciaInput ocorrenciaInput);
+        @Operation(summary = "Registrar ocorrencias", description = "Vincula uma ocorrência a uma entrega")
+        @ApiResponse(responseCode = "201", description = "Ocorrência registrada", content = @Content(mediaType = "application/json", schema = @Schema(implementation = OcorrenciaModel.class)))
+        OcorrenciaModel registrar(
+                        @Parameter(name = "entregaId", in = ParameterIn.PATH, description = "Id da entrega", required = true) Long entregaId,
+                        @RequestBody(description = "dados da ocorrência", required = true, content = @Content(mediaType = "application/json", schema = @Schema(implementation = OcorrenciaInput.class))) OcorrenciaInput ocorrenciaInput);
 
-    @Operation(
-            summary = "Listar ocorrências",
-            description = "Listar todas as ocorrências relacionadas a uma entrega"
-    )
-    @ApiResponse(
-            responseCode = "200",
-            description = "Todos as ocorrências",
-            content = @Content(
-                    mediaType = "application/json",
-                    schema = @Schema(
-                            implementation = OcorrenciaModel.class
-                    )
-            )
-    )
-    List<OcorrenciaModel> listar(@Parameter(name = "entregaId", in = ParameterIn.PATH, description = "Id da entrega", required = true) Long entregaId);
+        @Operation(summary = "Listar ocorrências", description = "Listar todas as ocorrências relacionadas a uma entrega")
+        @ApiResponse(responseCode = "200", description = "Todos as ocorrências", content = @Content(mediaType = "application/json", schema = @Schema(implementation = OcorrenciaModel.class)))
+        List<OcorrenciaModel> listar(
+                        @Parameter(name = "entregaId", in = ParameterIn.PATH, description = "Id da entrega", required = true) Long entregaId);
 
 }

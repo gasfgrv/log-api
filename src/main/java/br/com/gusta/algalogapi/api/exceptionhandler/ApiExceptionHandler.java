@@ -30,9 +30,9 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     @Override
     @ApiResponse(responseCode = "400", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Problema.class)))
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
-                                                                  HttpHeaders headers,
-                                                                  HttpStatus status,
-                                                                  WebRequest request) {
+            HttpHeaders headers,
+            HttpStatus status,
+            WebRequest request) {
 
         var campos = new ArrayList<Problema.Campo>();
 
